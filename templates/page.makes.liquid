@@ -1,0 +1,31 @@
+<!-- /templates/page.makes.liquid -->
+<!-- Shows a simple list of makes -->
+<div class="grid makes">
+
+  <div class="grid__item large--two-thirds push--large--one-sixth">
+
+    <h1>{{ page.title }}</h1>
+
+    {% comment %}
+      Regular page content goes here.
+    {% endcomment %}
+    <div class="rte intro-para">
+      {{ page.content }}
+	</div>
+	{% for link in linklists.products.links %}
+      	<a href="{{ link.url }}" class="{{link.title}}">
+			{% if link.title != 'Accessories'  %}
+			<div class="maker">
+				<img src="{{ link.title | downcase | append: '.svg' | asset_url }}" alt="Polaris">
+			{% else %}
+				<div class="accessories-wrap">
+				<p>All Accessories</p>	
+			{% endif %}
+			</div>
+		</a>
+      </a>
+	{% endfor %}
+    </div>
+  </div>
+
+</div>

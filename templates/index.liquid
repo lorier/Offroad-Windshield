@@ -1,0 +1,77 @@
+<!-- /templates/index.liquid -->
+{% comment %}
+
+  This is the homepage of your site.
+
+  More info on global variables (available on all templates):
+    - http://docs.shopify.com/themes/liquid-variables/global
+{% endcomment %}
+<div class="grid">
+  <div class="intro-text grid__item large--two-thirds push--large--one-sixth">{{ pages.frontpage.content}}</div>
+</div>
+{% comment %}
+  Use class grid-uniform to have evenly sized columns clear
+  each other properly at each breakpoint.
+{% endcomment %}
+
+
+<div class="grid hp-tiles">
+{% for link in linklists.homepage-tile-links.links %}
+      <a href="{{ link.url }}">
+        <div class="grid__item large--one-third medium--one-whole hp-tile {{ link.url }}">
+          <div class="grid__image hp-tile-image">
+             <div class="hp-tile-link">{{ link.title }}</div>
+             <div class="hp-tile-container">
+              {% if link.title == 'Our Products' %}
+                <img src="{{ 'hp-product-tile.jpg' | asset_url }}" alt="">
+              {% elsif link.title == 'Our Story' %}
+                <img src="{{ 'hp-ourstory-tile.jpg' | asset_url }}" alt="">
+              {% elsif link.title == 'Testimonials' %}
+                <img src="{{ 'hp-testimonials-tile.jpg' | asset_url }}" alt="">
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </a>
+{% endfor %}
+</div>
+
+<div class="grid-uniform">
+
+  {% if isEmpty %}
+    {% unless emptyState %}
+      {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+      {% assign emptyState = true %}
+    {% endunless %}
+
+    {% include 'onboarding-featured-collections' %}
+  {% endif %}
+
+</div>
+
+<hr>
+
+{% comment %}
+ Get the Promo banner.
+{% endcomment %}
+
+<div class="grid">
+    <div class="grid__item large--one-whole small--hide">
+      {% if settings.display_promo %}
+      <div class="promo-image">
+      <a href="{{ 'promo_link' }}">
+          <img src="{{ 'promo_banner.jpg' | asset_url }}" alt="Promotion"/>
+        </a>
+      </div>
+      {% endif %}      
+    </div>
+    <div class="grid__item large--one-whole small--show medium--hide large--hide">
+      {% if settings.display_promo %}
+      <div class="promo-image">
+      <a href="{{ 'promo_link' }}">
+          <img src="{{ 'promo_banner_mobile.jpg' | asset_url }}" alt="Promotion"/>
+        </a>
+      </div>
+      {% endif %}      
+    </div>
+</div>

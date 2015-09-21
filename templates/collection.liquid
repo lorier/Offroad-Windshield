@@ -1,0 +1,124 @@
+<!-- /templates/collection.liquid -->
+{% comment %}
+
+  For more information on collection tags:
+    - http://docs.shopify.com/themes/liquid-variables/collection
+
+{% endcomment %}
+
+
+
+{% include 'breadcrumb' %}
+
+{% comment %}
+  Use .grid--rev so that the collection tags appear below the products on mobile
+{% endcomment %}
+<div class="grid--rev">
+  <div class="grid__item large--one-whole">
+    {% comment %}
+      Different markup if a collection description exists
+    {% endcomment %}
+    {% if collection.description != blank %}
+      <header class="section-header">
+        <h1 class="section-header__title">{{ collection.title }}</h1>
+        <div class="rte rte--header">
+          {{ collection.description }}
+        </div>
+      </header>
+      <hr>
+      <div class="section-header">
+        <div class="section-header__right">
+          {% comment %}
+          {% include 'collection-sorting' %}
+          {% endcomment %}
+        </div>
+      </div>
+    {% else %}
+      <header class="section-header">
+        <h1 class="section-header__title section-header">{{ collection.title }}</h1>
+      </header>
+    {% endif %}
+
+    {% comment %}
+      Use class grid-uniform to have evenly sized columns clear
+      each other properly at each breakpoint.
+    {% endcomment %}
+    {% for type in collection.all_types %}
+    <div class="grid__item large--full">
+      
+      <div class="grid model">
+        <div class="grid__item large--three-twelfths medium--one-whole small--one-whole title-container">
+          <div class="model-title">
+            <h2>{{type}}</h2>
+          </div>
+        </div>
+        <div class="grid__item large--nine-twelfths medium--one-whole small--one-whole tile-container">
+         {% comment %} 
+         Start the orw-product-grid-item here  
+         {% endcomment %}
+          <div class="grid">
+             {% for product in collection.products %}
+                {% if product.type == type %}
+                    <a href="{{ product.url | within:collection }}" class="collection-tile {{product.tags | join ' '}}">
+                        <div class="grid__item large--one-half">
+                          <div class="tile-grid">
+                              <div class="img-wrapper">
+                                <img class="centered img-center"src="{{ product.featured_image.src | img_url: 'medium' }}" />
+                              </div>
+                               <h3>{{ product.title }}</h3>
+                             </div>
+                        </div>
+                       </a>
+                    {% endif %}
+                  {% endfor %}
+          </div>
+        </div>
+      </div>
+      
+      
+
+      {% comment %}
+        Loop through our products in the current collection.
+        See the snippet 'product-grid-item' for the layout.
+      {% endcomment %}
+      {% comment %}
+      {% assign grid_item_width = 'large--one-quarter medium--one-half' %}
+      {% endcomment %}
+     
+
+     
+
+         {% comment %} 
+          {% else %}
+         {% if collection.handle == 'all' %}
+              Add default products to help with onboarding for collections/all only
+            {% unless emptyState %}
+              {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+              {% assign emptyState = true %}
+            {% endunless %}
+            {% include 'onboarding-empty-collection' %}
+          {% else %}
+              If collection exists but is empty, display message
+            <div class="grid-item">
+              <p>{{ 'collections.general.no_matches' | t }}</p>
+            </div>
+          {% endif %}
+          {% endcomment %}
+      
+    </div>
+  {% endfor %}
+
+    {% comment %}
+    {% if paginate.pages > 1 %}
+      <hr>
+      <div class="pagination">
+        {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+      </div>
+    {% endif %}
+    {% endcomment %}
+
+  </div>
+
+</div>
+
+

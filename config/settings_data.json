@@ -1,0 +1,23 @@
+{
+  "current": "Default",
+  "presets": {
+    "Default": {
+      "ajax_cart_enable": true,
+      "cart_notes_enable": true,
+      "color_body_bg": "#fff",
+      "color_body_text": "#000000",
+      "color_borders": "#989893",
+      "color_footer_bg": "#989893",
+      "color_footer_social_link": "#000000",
+      "color_footer_text": "#000000",
+      "color_primary": "#000000",
+      "color_secondary": "#000000",
+      "homepage_slideshow_enable": true,
+      "favicon_enable": true,
+      "footer_newsletter_enable": false,
+      "footer_social_enable": true,
+      "logo_use_image": true, 
+      "social_facebook_link": "https:\/\/www.facebook.com\/offroadwindshield"
+    }
+  }
+}
