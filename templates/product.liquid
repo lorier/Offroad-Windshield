@@ -94,9 +94,9 @@
                 {% comment %}
                   Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
                 {% endcomment %}
-               {% comment %} 
-               <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
-               {% endcomment %}
+               
+               <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+            
            {% comment %}     <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>{% endcomment %}
                
 
@@ -110,6 +110,7 @@
             {% comment %} via https://ecommerce.shopify.com/c/ecommerce-design/t/adding-extra-products-via-a-checkbox-on-a-product-page-47020
             // Establish which collection this product belongs to, if it belongs to the "accessories" collection, return false, else return true.
             {% endcomment %}
+            
             {% assign found = false %}
             {% for acollection in product.collections %}
               {% if acollection.handle == 'accessories' %}
@@ -119,18 +120,18 @@
             {% if found == false %}
             {% comment %} // If the current product isn't in the "accessories" collection then output the extra products list
             {% endcomment %}
-            <div id="accessories"> 
+            {% comment %}<div id="accessories"> 
               <h3>Choose options to be added to basket</h3>
               <ul>
               {% for product in collections.accessories.products %}
               {% if product.id == 2618196739 %}
                 <li>
-                  <input type="checkbox" name="id" value="{{ product.id }}" /> {{ product.title }} - {{ product.price | money }} (<a href="{{ product.url }}" target="_blank" title="More details on {{ product.title }}">details</a>)
+                  <input type="checkbox" name="id[]" data-id="7648148227" /> {{ product.title }} - {{ product.price | money }} (<a href="{{ product.url }}" target="_blank" title="More details on {{ product.title }}">details</a>)
                 </li>
                 {% endif %}
               {% endfor %}
               </ul>
-            </div>
+            </div>{% endcomment %}
             {% endif %}
           <div class="price-wrapper">
             <span id="ProductPrice" class="h2" itemprop="price">
@@ -166,18 +167,20 @@
 </div>
 <div class="grid">
   <div class="grid__item large--one-whole">
+  {% if product.type != 'Accessories' %}
   <h4 class="cross-sell">You May Also Like</h4>
   </div>
-  {% for product in collections.accessories.products %}
-      <div class="grid__item large--one-third medium--one-whole">
-      <div class="img-wrapper">
-        <a class="over" href="{{product.url}}">
-            <img class="centered img-center" src="{{ product.featured_image | img_url: 'large' }}"/>
-        </a>
-      </div>
-      <p>{{product.title}} <strong> {{product.price | money }}</strong></p>
-      </div>
-    {% endfor %} 
+    {% for product in collections.accessories.products %}
+        <div class="grid__item large--one-third medium--one-whole">
+        <div class="img-wrapper">
+          <a class="over" href="{{product.url}}">
+              <img class="centered img-center" src="{{ product.featured_image | img_url: 'large' }}"/>
+          </a>
+        </div>
+        <p>{{product.title}} <strong> {{product.price | money }}</strong></p>
+        </div>
+      {% endfor %} 
+    {% endif %}
   </div>
 
 
@@ -224,8 +227,8 @@
       {% endfor %}
     {% endif %}
     //hooking up add-on
-    $('.year-options .single-option-selector')
-          .trigger('change');
+    // $('.year-options .single-option-selector')
+    //       .trigger('change');
 
     // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
     {% if product.options.size == 1 and product.options.first != 'Title' %}
