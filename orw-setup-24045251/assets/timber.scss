@@ -75,42 +75,51 @@ $breakpoint-has-pull:  ('medium', 'medium-down', 'large');
 /*============================================================================
   #General Variables
 ==============================================================================*/
+// ORW colors 
+$orwLightGray: #989893;
+$orwMediumDarkGray: #72726f;
+$orwYellow: #ffb61c;
+$orwGrayRule: #a8a8a8;
+
+$orwBoldBorder: 5px solid black;
 
 // Timber Colors
-$colorPrimary: #747474;
-$colorSecondary: #bbb;
+$colorPrimary: #000000;
+$colorSecondary: #f6a700;
 
 // Button colors
-$colorBtnPrimary: $colorPrimary;
-$colorBtnPrimaryHover: darken($colorBtnPrimary, 10%);
-$colorBtnPrimaryActive: darken($colorBtnPrimaryHover, 10%);
-$colorBtnPrimaryText: #fff;
+$colorBtnPrimary: $orwYellow;
+$colorBtnPrimaryHover: ($colorBtnPrimary);
+$colorBtnPrimaryActive: $colorBtnPrimary;
+$colorBtnPrimaryText: black;
 
 $colorBtnSecondary: $colorSecondary;
 $colorBtnSecondaryHover: darken($colorBtnSecondary, 10%);
 $colorBtnSecondaryActive: darken($colorBtnSecondaryHover, 10%);
 $colorBtnSecondaryText: #fff;
 
+
+
 // Text link colors
 $colorLink: $colorPrimary;
 $colorLinkHover: lighten($colorPrimary, 15%);
 
 // Text colors
-$colorTextBody: #333333;
+$colorTextBody: #000000;
 
 // Backgrounds
 $colorBody: #fff;
 
 // Border colors
-$colorBorder: #e5e5e5;
+$colorBorder: $orwLightGray;
 
 // Nav and dropdown link background
-$colorNav: #f2f2f2;
+$colorNav: $orwYellow;
 $colorNavText: #333;
 
 // Site Footer
-$colorFooterBg: #f2f2f2;
-$colorFooterText: #636363;
+$colorFooterBg: #989893;
+$colorFooterText: #000000;
 
 // Helper colors
 $disabledGrey: #f6f6f6;
@@ -123,7 +132,7 @@ $successGreenBg: #ecfef0;
 // Drawers
 $drawerNavWidth: 300px;
 $drawerCartWidth: 300px;
-$colorDrawers: #f6f6f6;
+$colorDrawers: $orwLightGray;
 $colorDrawerBorder: darken($colorDrawers, 5%);
 $colorDrawerText: #333;
 $drawerTransition: 'all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1)';
@@ -132,7 +141,7 @@ $drawerTransition: 'all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1)';
 $siteWidth: 1180px;
 $gutter: 30px;
 $gridGutter: 30px; // can be a %, but nested grids will have smaller margins because of it
-$radius: 3px;
+$radius: 0;
 
 // Z-index
 $zindexNavDropdowns: 5;
@@ -140,25 +149,28 @@ $zindexDrawer: 10;
 
 /*================ Typography ================*/
 
-$headerFontStack: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$headerFontStack: 'Fira Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $headerFontWeight: 700;
 
-$bodyFontStack: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$baseFontSize: 14px; // Henseforth known as 1em
+$bodyFontStack: 'Fira Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$baseFontSize: 16px; // Henseforth known as 1em
 
 @font-face {
   font-family: 'icons';
-  src: url('//cdn.shopify.com/s/files/1/0871/1518/t/2/assets/icons.eot?4743648130713686986');
-  src: url('//cdn.shopify.com/s/files/1/0871/1518/t/2/assets/icons.eot?4743648130713686986#iefix') format("embedded-opentype"),
-       url('//cdn.shopify.com/s/files/1/0871/1518/t/2/assets/icons.woff?4743648130713686986') format("woff"),
-       url('//cdn.shopify.com/s/files/1/0871/1518/t/2/assets/icons.ttf?4743648130713686986') format("truetype"),
-       url('//cdn.shopify.com/s/files/1/0871/1518/t/2/assets/icons.svg?4743648130713686986#timber-icons') format("svg");
+  src: url('//cdn.shopify.com/s/files/1/0871/1518/t/2/assets/icons.eot?807160587237239304');
+  src: url('//cdn.shopify.com/s/files/1/0871/1518/t/2/assets/icons.eot?807160587237239304#iefix') format("embedded-opentype"),
+       url('//cdn.shopify.com/s/files/1/0871/1518/t/2/assets/icons.woff?807160587237239304') format("woff"),
+       url('//cdn.shopify.com/s/files/1/0871/1518/t/2/assets/icons.ttf?807160587237239304') format("truetype"),
+       url('//cdn.shopify.com/s/files/1/0871/1518/t/2/assets/icons.svg?807160587237239304#timber-icons') format("svg");
   font-weight: normal;
   font-style: normal;
 }
 $socialIconFontStack: 'icons';
 
-
+.main-content h1 {
+  line-height: 1.1em;
+  margin-bottom: 20px;
+}
 /*============================================================================
   #Sass Mixins
 ==============================================================================*/
@@ -228,6 +240,9 @@ $socialIconFontStack: 'icons';
   @else {
     @return #fff;
   }
+}
+@mixin ease($speed: 0.2s, $items: all){
+  transition: $items $speed ease;
 }
 
 /*============================================================================
@@ -692,7 +707,9 @@ body {
 [tabindex='-1']:focus {
   outline: none;
 }
-
+:focus {
+  outline: none;
+}
 .wrapper {
   @include clearfix();
   max-width: $siteWidth;
@@ -990,6 +1007,7 @@ hr {
 /*============================================================================
   #Rich Text Editor
 ==============================================================================*/
+
 .rte {
   margin-bottom: $gutter / 2;
 
@@ -1028,14 +1046,20 @@ hr {
 ==============================================================================*/
 a,
 .text-link {
-  color: $colorLink;
   text-decoration: none;
   background: transparent;
 }
+a,
+.text-link {
+ @include ease(0.3s); 
+  color: $colorLink;
+}
+
 
 a:hover,
 a:focus {
   color: $colorLinkHover;
+   @include ease(0.3s); 
 }
 
 button {
@@ -1066,6 +1090,12 @@ html input[disabled] {
   -moz-appearance: none;
   border-radius: $radius;
 
+  background: #ffb61c url(" //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/arrows.svg?8182161117367312273 ") no-repeat 92% center;
+  background-size: 14%;
+  font-size: 26px;
+  font-weight: normal; 
+  padding: 9px 50px 9px 20px;
+
   /*================ Set primary button colors - can override later ================*/
   background-color: $colorBtnPrimary;
   color: $colorBtnPrimaryText;
@@ -1073,6 +1103,8 @@ html input[disabled] {
   &:hover {
     background-color: $colorBtnPrimaryHover;
     color: $colorBtnPrimaryText;
+    background-position: 93%;
+    @include ease(0.1s, background-position);
   }
 
   &:active,
@@ -1086,6 +1118,9 @@ html input[disabled] {
     cursor: default;
     color: $disabledBorder;
     background-color: $disabledGrey;
+    background: $disabledGrey url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/arrows-gray.svg?807160587237239304 ') no-repeat 95% center;
+    background-size: 14%;
+
   }
 }
 
@@ -1326,7 +1361,7 @@ textarea,
 select {
   border: 1px solid $colorBorder;
   max-width: 100%;
-  padding: 8px 10px;
+  padding: 5px 22px;
   border-radius: $radius;
 
   &:focus {
@@ -1379,7 +1414,7 @@ select {
           appearance: none;
   background-position: right center;
   background: {
-    image: url('//cdn.shopify.com/s/files/1/0871/1518/t/2/assets/ico-select.svg?4743648130713686986');
+    image: url('//cdn.shopify.com/s/files/1/0871/1518/t/2/assets/ico-select.svg?807160587237239304');
     repeat: no-repeat;
     position: right 10px center;
     color: transparent;
@@ -1596,13 +1631,28 @@ label.error {
 .icon-x:before { content: "\e606"; }
 .icon-youtube:before { content: "\79"; }
 
+.icon-pdf:before { 
+  background-image: url('//cdn.shopify.com/s/files/1/0871/1518/t/2/assets/file-pdf.svg?807160587237239304'); 
+  background-size: 21px 42px;
+  width: 21px;
+  height: 42px;
+  content: "";
+  display: inline-block !important;
+}
+.icon-pdf {
+     display: inline-block;
+     vertical-align: middle;
+}
+.icon-pdf:before {
+  display: inline-block;
+}
 .payment-icons {
   @include prefix('user-select', 'none');
   cursor: default;
 
   li {
     margin: 0 ($gutter / 4) ($gutter / 4);
-    color: #bbbbbb;
+    color: #000000;
     cursor: default;
   }
 
@@ -1630,10 +1680,10 @@ label.error {
   }
 
   a {
-    color: #bbbbbb;
+    color: #000000;
 
     &:hover {
-      color: darken(#bbbbbb, 10%);
+      color: darken(#000000, 10%);
     }
   }
 }
@@ -1664,8 +1714,10 @@ label.error {
   #Site Header
 ==============================================================================*/
 .site-header {
-  padding: ($gutter / 2) 0;
-
+  // padding: ($gutter / 2) 0;
+  padding: 0;
+  background-color: $orwYellow;
+  border-bottom: 24px solid black;
   .grid--table {
     display: table;
     table-layout: fixed;
@@ -1674,7 +1726,10 @@ label.error {
     > .grid__item {
       float: none;
       display: table-cell;
-      vertical-align: middle;
+    }
+    > .grid__item.lr-desktop-nav-container {
+      vertical-align: bottom;
+      padding-bottom: 12px;
     }
   }
 }
@@ -1682,10 +1737,20 @@ label.error {
 .site-header__logo {
   text-align: center;
   margin: 0 auto;
-  max-width: 100%;
+  max-width: 282px;
+  border-bottom: 0;
+
 
   @include at-query ($min, $large) {
     text-align: left;
+    max-width: 282px;
+  }
+  @include at-query ($max, $medium) {
+    text-align: left;
+    max-width: 240px;
+  }
+  @include at-query ($max, $small) {
+    max-width: 190px;
   }
 
   a,
@@ -1728,6 +1793,27 @@ label.error {
   }
 }
 
+//LR added classes
+.lr-cart {
+  text-align: right;
+  padding-top: 10px;
+  max-height: 45px;
+  .social-icons {
+    display: inline-block;
+  }
+  a {
+    color: black;
+  }
+}
+.lr-cart-icon {
+  margin-left: 20px;
+  display: inline-block;
+  .icon-cart { 
+    // font-size: 32px;
+    line-height: 32px;
+  }
+}
+
 /*============================================================================
   #Site Nav and Dropdowns
 ==============================================================================*/
@@ -1736,9 +1822,10 @@ label.error {
 }
 
 .site-nav {
-  font-size: em(16px);
+  font-size: em(20px);
   cursor: default;
   margin: 0 0 0 (-$gutter / 2);
+
 
   li {
     margin: 0;
@@ -1750,11 +1837,13 @@ label.error {
     display: inline-block;
   }
 }
+.site-nav__link.more {
+  cursor: default;
+}
 
 /*================ Home to hamburger and cart that toggle drawers ================*/
 .site-nav--mobile {
   @extend .site-nav;
-
   .text-right & {
     margin: 0 (-$gutter / 2) 0 0;
   }
@@ -1764,9 +1853,12 @@ label.error {
   display: block;
   text-decoration: none;
   padding: $gutter / 2;
+  padding-bottom: 0;
   white-space: nowrap;
-  color: $colorNavText;
-
+  color: black;
+  text-transform: uppercase;
+  font-weight: 700;
+ 
   &:hover,
   &:active,
   &:focus {
@@ -1787,7 +1879,23 @@ label.error {
   .site-nav--mobile & {
     display: inline-block;
   }
+
+  .lr-desktop-nav {
+      text-align: right;
+  } 
 }
+ @include at-query ($max, 1100px) {
+    .site-nav__link, 
+    .separator {
+       padding: 0 3px;
+       font-size: 18px;
+    }
+  }
+   @include at-query ($max, 860px) {
+    .site-nav>li.separator {
+       display: none;
+    }
+  }
 
 /*================ Dropdowns ================*/
 .site-nav__dropdown {
@@ -1796,20 +1904,21 @@ label.error {
   left: 0;
   margin: 0;
   z-index: $zindexNavDropdowns;
-
+  border-bottom: $orwBoldBorder;
   .supports-no-touch .site-nav--has-dropdown:hover &,
   .site-nav--has-dropdown.nav-hover &,
   .nav-focus + & {
     display: block;
-  }
+ }
 
   a {
     background-color: $colorNav;
-
+    @include ease(0.3s); 
     &:hover,
     &:active,
     &:focus {
       background-color: darken($colorNav, 10%);
+      @include ease(0.3s); 
     }
   }
 }
@@ -1972,7 +2081,7 @@ label.error {
   padding: 0 ($gutter / 2) ($gutter / 2);
   max-width: 95%;
   z-index: $zindexDrawer;
-  color: $colorDrawerText;
+  color: black;
   background-color: $colorDrawers;
   @include transition($drawerTransition);
 
@@ -2081,9 +2190,35 @@ label.error {
   background-color: $colorFooterBg;
   padding: $gutter 0;
   color: $colorFooterText;
+  border-top: 12px solid black;
+  font-size: 18px;
 
   @include at-query ($min, $large) {
-    padding: ($gutter * 2) 0;
+    padding: ($gutter * 1) 0;
+  }
+  .title-link {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 21px;
+    line-height: 25px;
+  }
+  .title-link+.title-link {
+    margin-top: 15px;
+  }
+  hr {
+    border-top: 6px solid $orwMediumDarkGray;
+    margin: 15px 0;
+  }
+  .text-center hr {
+    margin-top: 20px;
+  }
+  .copyright {
+    font-size: 16px;
+  }
+  .social-container {
+  }
+  .social-container h3 {
+    display: inline-block;
   }
 }
 
@@ -2111,13 +2246,13 @@ label.error {
   #Breadcrumbs
 ==============================================================================*/
 .breadcrumb {
-  margin-bottom: $gutter;
-
+  margin-bottom: 15px;
+  font-size: 18px;
   a,
   span {
     display: inline-block;
     padding: 0 7px 0 0;
-    margin-right: 7px;
+    // margin-right: 7px;
 
     &:first-child {
       padding-left: 0;
@@ -2227,11 +2362,27 @@ label.error {
 /*============================================================================
   #Cart Page
 ==============================================================================*/
+.template-cart {
+  #PageContainer {
+      background: #f2f0e8 url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/tan-blobs.png?807160587237239304 ') no-repeat  center 120px;
+  }
+  .main-content {
+    h1 {
+      color: black;
+      border: none;
+      text-align: center;
+    }
+  }
+
+}
 .cart__row {
   position: relative;
-  margin-top: $gutter;
-  padding-top: $gutter;
-  border-top: 1px solid $colorBorder;
+  margin-top: 23px;
+  padding-top: 23px;
+  border-top: 2px solid #000;
+  &:first-child {
+  }
+
 
   &:first-child {
     margin-top: 0;
@@ -2239,11 +2390,21 @@ label.error {
 
   &:first-child {
     padding-top: 0;
-    border-top: 0 none;
+    // border-top: 0 none;
   }
 
   .js-qty {
     margin: 0 auto;
+    background-color: #fff;
+  }
+  &.cart__header-labels {
+    text-transform: uppercase;
+    font-weight: bold;
+    border-top: 6px solid black;
+  }
+  .cart__remove {
+    font-weight: bold;
+    color: #f6a700;
   }
 }
 
@@ -2398,7 +2559,7 @@ label.error {
 .ajaxcart__qty {
   @extend .js-qty;
   margin: 0;
-
+  background-color: lighten($orwLightGray, 10% );
   .is-loading & {
     opacity: 0.5;
     @include transition(none);
@@ -2426,3 +2587,434 @@ label.error {
 }
 
  // settings.ajax_cart_enable
+
+/*=== Slick (slideshow) CSS ==*/
+.slideshow-container {
+  width: 100%;
+  background-color: black;
+}
+.slideshow {
+  margin: 0 auto;
+}
+.slick-slider {
+  margin-bottom: 40px !important; 
+}
+ul.slick-dots  {
+  margin: 15px 0 !important;
+}
+.slick-dots li {
+  margin: 0 9px !important;
+}
+.slick-dots li button:before  {
+  font-size: 12px !important;
+}
+img {
+  width: 100%;
+  max-width: 1576px;
+  margin: 0 auto;
+}
+/*==== ORW Page-specific styles  ======*/
+header .icon-fallback-text {
+  font-size: 26px;
+}
+.separator:last-child {
+  display:none;
+}
+/*== Semi-global styles ==*/
+ //image centering via http://codepen.io/gcyrillus/pen/BdtEj
+ .template-product {
+  .img-wrapper {
+    display: inline-block;
+    width: 350px;
+    text-align: center;
+    line-height: 300px;
+    height: 300px;
+    border: 1px solid $orwLightGray;
+    overflow: hidden;
+    vertical-align: top;
+    margin-bottom: 10px;
+     @include at-query ($max, 1190px) {
+        width:  250px;
+        height: 250px;
+      }
+      @include at-query ($max, 900px) {
+        width:  210;
+        height: 210px;
+      }
+    img.img-center {
+      margin: -100%;
+      vertical-align: middle;
+      position: relative;
+      // z-index: -1;
+      width: auto;
+      max-width: inherit;
+    }
+  }
+}
+h1 {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #fff;
+  font-size: 65px;
+  margin-bottom: 0;
+}
+.intro-para {
+  color: #fff;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+/* == INDEX ==*/
+.template-index {
+  background-color: #393939 !important;
+}
+.intro-text {
+  font-size: 22px;
+  text-align: center;
+  color: white;
+}
+.hp-tile-image {
+  max-width: 350px;
+}
+.hp-tile-container {
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+  @include at-query ($max, 1140px) {
+        height: 200px;
+      }
+  img {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  img {
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+    @include ease;
+  }
+}
+.hp-tiles a:hover {
+  img {
+      @include ease;
+      -webkit-filter: unset;
+      filter: unset;
+    }
+  .hp-tile-link {
+    @include ease;
+    background-position: 96% center;
+  }
+}
+
+.hp-tile-link {
+  background-color: $orwYellow;
+  font-weight: 700;
+  font-size: 35px;
+  line-height: 40px;
+  border-top: 7px solid black;
+  padding-top: 34px;
+  padding-left: 8px;
+
+  @include at-query ($max, 1140px) {
+    font-size: 28px;
+  }
+}
+.hp-tile-link {
+    background: $orwYellow url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/arrows.svg?807160587237239304 ') no-repeat 95% center;
+    background-size: 16%;
+    transition: all 0.2s ease;
+}
+/* == Products (Makes) ==*/
+#products {
+  #PageContainer {
+    
+    background: #393939 url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/gray-blobs.png?807160587237239304 ') no-repeat  center 120px;
+  }
+  .main-content {
+    text-align: center;
+  }
+  h1 {
+    border-bottom: 0;
+  }
+  .maker {
+    border-left: 10px solid black;
+    background-color: $orwYellow;
+    background: $orwYellow url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/arrows.svg?807160587237239304 ') no-repeat 95% center;
+    @include ease(background-position, 0.1s); 
+    background-size: 9%;
+    margin-bottom: 30px;
+    height: 100px;
+    img {
+      height: 100%;
+    }
+    &:hover {
+      @include ease(0.1s, background-position); 
+      background-position: 96% center;
+      background-size: 9%;
+    }
+  }
+  .Accessories {
+    display: table;
+    width: 100%;
+  }
+  .accessories-wrap {
+    text-align: center;
+    font-size: 45px;
+    color: $orwLightGray;
+    background: black url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/arrows-gray.svg?807160587237239304 ') no-repeat 95% center;
+    background-size: 9%;
+    height: 100px;
+      display: table-cell;
+      vertical-align: middle;
+      margin: auto; 
+    p {
+      display: inline-block;
+      margin: 0;
+      @include at-query ($max, 1140px) {
+        font-size: 20px;
+      }
+    }
+     &:hover {
+      @include ease(0.1s, background-position); 
+      background-position: 96% center;
+      background-size: 9%;
+    }
+  }
+}
+/* == Collections (Models) ==*/
+.template-collection {
+  background: #f2f0e8 url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/tan-blobs.png?807160587237239304 ') no-repeat  center 120px;
+  .img-wrapper {
+      display: inline-block;
+      width: 139px;
+      text-align: center;
+      line-height: 139px;
+      height: 139px;
+      overflow: hidden;
+      vertical-align: top;
+      float: left;
+      margin-right: 10px;
+      img.img-center {
+        border: none;
+        margin: -100%;
+        vertical-align: middle;
+        position: relative;
+        // z-index: -1;
+        width: auto;
+        max-width: inherit;
+      }
+    }
+  .main-content h1 {
+    color: black;
+    text-align: center;
+    border-bottom: 5px solid black;
+  }
+  .model {
+    border-bottom: 2px solid black;
+    margin-bottom: 30px;
+  }
+  .title-container {
+    padding-left: 0;
+    h2 {
+      font-size: 53px;
+      font-weight: normal;
+    }
+   @include at-query ($max, 970px) {
+    width: 20%;
+      h2 {
+        font-size: 30px;
+      }
+    }
+    @include at-query ($max, 860px) {
+      width: 100%;
+        h2 {
+            font-size: 45px;
+        }
+    }
+  }
+  .tile-container {
+    padding-left: 0;
+    h3 {
+      font-size: 27px;
+      margin-top: 15px;
+    }
+    @include at-query ($max, 970px) {
+            width: 80%;
+            h3 {
+              font-size: 24px;
+            }
+          }
+    @include at-query ($max, 860px) {
+            width: 100%;
+            h3 {
+              font-size: 27px;
+            }
+          }
+  }
+  a.collection-tile {
+    .large--four-tenths {
+      height: 100%;
+    }
+    .image-wrap{
+      height: 100%;
+      overflow: hidden;
+      border-left: 5px solid black;
+    }
+    img {
+      // height: 100%;
+      // width: auto;
+    }
+    .tile-grid {
+      width: 100%;
+      height: 140px;
+      margin-bottom: 30px;
+      border-left: 6px solid black;
+      &>div {
+        @include at-query ($max, $small) {
+          padding-left: 0;
+        }
+      }
+      float: left;
+      padding: 0 10px 0 0;
+      height: 100%;
+      background: $orwYellow url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/arrows.svg?807160587237239304 ') no-repeat 95% 90%;
+      background-size: 45px auto;
+      &:hover {
+        @include ease(background-position, 0.2s);
+        background-position: 96% 90%;
+      }
+    }
+    &.half .tile-grid {
+      background: $orwYellow url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/arrows.svg?807160587237239304 ') no-repeat 95% 90%;
+      background-size: 45px auto;
+      &:hover {
+        @include ease(background-position, 0.2s);
+        background-position: 96% 90%;
+      }
+    }
+    &.full .tile-grid  {
+      background: $orwMediumDarkGray url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/arrows-gray.svg?807160587237239304 ') no-repeat 95% 90%;
+      background-size: 45px auto;
+      color: white;
+      &:hover {
+        @include ease(background-position, 0.2s);
+        background-position: 96% 90%;
+      }
+    }
+    &.back .tile-grid {
+      background: white url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/arrows-gray.svg?807160587237239304 ') no-repeat 95% 90%;
+      background-size: 45px auto;
+      &:hover {
+        @include ease(background-position, 0.2s);
+        background-position: 96% 90%;
+      }
+    }
+  }
+}
+/* == Product Page ==*/
+.template-product {
+      background: #f2f0e8 url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/tan-blobs.png?807160587237239304 ') no-repeat  center 120px;
+  .main-content h1 {
+    font-size: 47px;
+    font-weight: normal;
+    color: black;
+    text-transform: none;
+  }
+  .product-single {
+    margin-bottom: 50px;
+  }
+  #ProductPhoto {
+    border: 1px solid $orwGrayRule;
+  }
+  .social-sharing {
+    font-size: 22px;
+    text-align: left;
+    li {
+      margin-right: 10px;
+    }
+  }
+  #ProductPrice {
+    font-size: 50px;
+    font-weight: normal;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .price-wrapper {
+    border-top: $orwBoldBorder;
+    padding-top: 10px;
+    margin-top: 20px;
+  }
+  #ProductPrice, #AddToCart {
+    vertical-align: middle;
+  }
+  #ProductPrice {
+    margin: 0;
+    padding-right: 20px;
+  }
+  #AddToCart {
+    // background: $orwYellow url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/arrows.svg?807160587237239304 ') no-repeat 95% center;
+    // background-size: 14%;
+    // font-size: 26px;
+    // font-weight: normal;
+  }
+  .single-option-selector {
+    width: 80%;
+    background-color: #fff;
+  }
+  label {
+    color: $orwMediumDarkGray;
+  }
+  .cross-sell {
+    font-size: 30px;
+    font-weight: 400;
+    border-bottom: $orwBoldBorder;
+    p {
+      font-size: 22px;
+    }
+  }
+}
+/*--Standard Page Templates--*/
+#product-information,
+.template-page {
+    font-size: 18px;
+    background: #393939 url(' //cdn.shopify.com/s/files/1/0871/1518/t/2/assets/gray-blobs.png?807160587237239304 ') no-repeat  center 120px;
+    .rte {
+      color: white;
+    }
+    .section {
+      border-bottom: 5px solid black;
+      padding-bottom: 20px;
+    }
+    .main-content h1 { 
+      font-size: 65px;
+      text-transform: uppercase;
+      font-weight: bold;
+      text-align: center;
+      border-bottom: 5px solid black;
+    }
+    h2 {
+      font-size: 36px;
+      text-transform: uppercase;
+      margin-top: 15px;
+    }
+    .benefits .grid {
+      padding: 0 40px;
+      img {
+        width: auto;
+        margin-bottom: 10px;
+      }
+    }
+}
+#testimonials {
+  .testimonialQuote {
+    font-size: 20px;
+  }
+  .testimonialName {
+    text-align: right;
+    font-style: oblique;
+    font-weight: bold;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid black;
+  }
+}
