@@ -14,9 +14,15 @@
 	</div>
 	{% for link in linklists.products.links %}
       	<a href="{{ link.url }}" class="{{link.title}}">
+
+      		{% assign thehandle = link.handle %}
+      		{% assign thecollection = collections[thehandle] %}
+
+      		{% comment %}<p> {{ thecollection.image }}</p>{% endcomment %}
 			{% if link.title != 'Accessories'  %}
-			<div class="maker">
-				<img src="{{ link.title | downcase | append: '.svg' | asset_url }}" alt="Polaris">
+				<div class="maker">
+				{% comment %}<img src="{{ link.title | downcase | append: '.svg' | asset_url }}" alt="{{ link.title }}">{% endcomment %}
+				<img src="{{ thecollection.image.src | img_url: "large" }}" alt="{{ link.title }}">
 			{% else %}
 				<div class="accessories-wrap">
 				<p>All Accessories</p>	
